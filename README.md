@@ -1,64 +1,352 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Wood Trading Application
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive Laravel-based wood trading management system with multi-tenant support, inventory management, sales, purchases, and financial operations.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Core Modules
+- **Inventory Management**: Item catalog, stock tracking, lot management, low stock alerts
+- **Purchase Management**: Purchase orders, goods receipt, supplier management
+- **Sales Management**: Quotations, sales orders, delivery notes, invoicing
+- **Customer & Supplier CRM**: Contact management, credit limits, payment terms
+- **Financial Operations**: Payment tracking, aging reports, financial summaries
+- **Reporting & Analytics**: Stock valuation, sales/purchase reports, performance dashboards
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Technical Features
+- **Multi-tenant Architecture**: Support for multiple companies/tenants
+- **Role-based Access Control**: Granular permissions for different user roles
+- **RESTful API**: Complete API with Swagger documentation
+- **Real-time Stock Tracking**: FIFO/Average costing methods
+- **Audit Logging**: Complete activity tracking
+- **PDF Generation**: Invoices and reports
+- **Comprehensive Testing**: Unit and feature tests
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Technology Stack
 
-## Learning Laravel
+- **Backend**: Laravel 8.x
+- **Database**: MySQL/PostgreSQL
+- **Authentication**: Laravel Sanctum
+- **Authorization**: Spatie Laravel Permission
+- **API Documentation**: Swagger/OpenAPI
+- **Testing**: PHPUnit
+- **PDF Generation**: DomPDF
+- **Multi-tenancy**: Spatie Laravel Multitenancy
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Prerequisites
+- PHP 7.3 or higher
+- Composer
+- MySQL 5.7+ or PostgreSQL 10+
+- Node.js and NPM (for frontend assets)
 
-## Laravel Sponsors
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/your-username/wood-trading.git
+cd wood-trading
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Step 2: Install Dependencies
+```bash
+composer install
+npm install
+```
 
-### Premium Partners
+### Step 3: Environment Configuration
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Update your `.env` file with database credentials and other settings:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=wood_trading
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+
+SANCTUM_STATEFUL_DOMAINS=localhost,127.0.0.1
+```
+
+### Step 4: Database Setup
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+### Step 5: Generate API Documentation
+```bash
+php artisan l5-swagger:generate
+```
+
+### Step 6: Start the Application
+```bash
+php artisan serve
+```
+
+The application will be available at `http://localhost:8000`
+
+## API Documentation
+
+Once the application is running, you can access the interactive API documentation at:
+- **Swagger UI**: `http://localhost:8000/api/documentation`
+
+## Default Users
+
+After running the seeders, you'll have the following default users:
+
+| Role | Email | Password |
+|------|-------|----------|
+| Owner/Admin | admin@woodtrading.com | password |
+| Salesperson | sarah@woodtrading.com | password |
+| Storekeeper | mike@woodtrading.com | password |
+| Accountant | lisa@woodtrading.com | password |
+
+## User Roles and Permissions
+
+### Owner/Admin
+- Full access to all modules
+- User and role management
+- System configuration
+- All reports and analytics
+
+### Salesperson
+- Create and manage quotations
+- Create and manage sales orders
+- View stock levels
+- Generate invoices
+- Manage customers
+- View sales reports
+
+### Storekeeper
+- Receive purchase orders
+- Issue delivery notes
+- Stock adjustments
+- Warehouse management
+- View stock reports
+
+### Accountant
+- Record payments
+- View financial reports
+- Manage aging reports
+- Tax management
+- View all financial data
+
+## API Usage
+
+### Authentication
+```bash
+# Login
+curl -X POST http://localhost:8000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@woodtrading.com","password":"password"}'
+
+# Use token in subsequent requests
+curl -X GET http://localhost:8000/api/items \
+  -H "Authorization: Bearer YOUR_TOKEN"
+```
+
+### Example API Calls
+
+#### Get Items
+```bash
+curl -X GET "http://localhost:8000/api/items?search=pine&page=1&per_page=10" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+```
+
+#### Create Item
+```bash
+curl -X POST http://localhost:8000/api/items \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "code": "PINE-2X4-8",
+    "name": "Pine 2x4 8ft",
+    "species": "Pine",
+    "grade": "A",
+    "thickness": 38.1,
+    "width": 88.9,
+    "length": 2438.4,
+    "unit": "piece",
+    "costing_method": "FIFO"
+  }'
+```
+
+#### Adjust Stock
+```bash
+curl -X POST http://localhost:8000/api/stock/adjust \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "item_id": 1,
+    "warehouse_id": 1,
+    "quantity": 10,
+    "type": "adjustment",
+    "movement": "in",
+    "reason": "Physical count adjustment"
+  }'
+```
+
+## Testing
+
+### Run Tests
+```bash
+# Run all tests
+php artisan test
+
+# Run specific test suite
+php artisan test --testsuite=Feature
+php artisan test --testsuite=Unit
+
+# Run with coverage
+php artisan test --coverage
+```
+
+### Test Database
+The tests use a separate in-memory SQLite database. No additional setup is required.
+
+## Database Schema
+
+### Core Entities
+- **Items**: Wood products with specifications
+- **StockLots**: Inventory batches with quantities and costs
+- **Warehouses**: Storage locations
+- **Customers**: Client information and credit limits
+- **Suppliers**: Vendor information and terms
+- **PurchaseOrders**: Purchase requests and confirmations
+- **SalesOrders**: Customer orders
+- **Invoices**: Billing documents
+- **Payments**: Financial transactions
+- **StockMovements**: Inventory tracking
+
+### Key Relationships
+- Items have multiple StockLots
+- StockLots belong to Warehouses
+- PurchaseOrders have multiple Items
+- SalesOrders have multiple Items
+- Invoices are generated from SalesOrders
+- Payments are linked to Invoices
+
+## Configuration
+
+### Multi-tenancy
+The application supports multiple tenants. Each tenant has:
+- Separate database (optional)
+- Isolated data
+- Custom settings
+- Independent users
+
+### Stock Costing
+Two costing methods are supported:
+- **FIFO**: First In, First Out
+- **Average**: Weighted average cost
+
+### Units
+Supported measurement units:
+- `piece` - Individual items
+- `m` - Linear meters
+- `m²` - Square meters
+- `m³` - Cubic meters
+- `sheet` - Sheet materials
+
+## Deployment
+
+### Production Setup
+1. Set up a production server (Ubuntu 20.04+ recommended)
+2. Install PHP 8.0+, MySQL/PostgreSQL, Nginx
+3. Clone the repository
+4. Install dependencies: `composer install --no-dev`
+5. Configure environment variables
+6. Run migrations and seeders
+7. Set up SSL certificates
+8. Configure web server (Nginx/Apache)
+9. Set up queue workers for background jobs
+10. Configure backup procedures
+
+### Docker Deployment
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# Run migrations
+docker-compose exec app php artisan migrate
+
+# Seed database
+docker-compose exec app php artisan db:seed
+```
+
+## Monitoring and Maintenance
+
+### Logs
+- Application logs: `storage/logs/laravel.log`
+- Activity logs: `activity_log` table
+- Error tracking: Configure with services like Sentry
+
+### Backup
+- Database backups: Daily automated backups
+- File storage: Regular backup of uploaded files
+- Configuration: Backup of `.env` and configuration files
+
+### Performance
+- Enable Redis for caching and sessions
+- Use queue workers for heavy operations
+- Monitor database performance
+- Implement CDN for static assets
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Make your changes
+4. Add tests for new functionality
+5. Run tests: `php artisan test`
+6. Commit changes: `git commit -am 'Add new feature'`
+7. Push to branch: `git push origin feature/new-feature`
+8. Submit a pull request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+For support and questions:
+- Email: support@woodtrading.com
+- Documentation: [API Documentation](API_DOCUMENTATION.md)
+- Issues: [GitHub Issues](https://github.com/your-username/wood-trading/issues)
+
+## Changelog
+
+### Version 1.0.0
+- Initial release
+- Complete inventory management
+- Sales and purchase workflows
+- Multi-tenant support
+- RESTful API with Swagger documentation
+- Comprehensive testing suite
+- Role-based access control
+- Financial reporting
+- PDF generation
+- Audit logging
+
+## Roadmap
+
+### Version 1.1.0
+- [ ] Mobile app (React Native)
+- [ ] Advanced reporting dashboard
+- [ ] Barcode scanning integration
+- [ ] Email notifications
+- [ ] Advanced inventory forecasting
+
+### Version 1.2.0
+- [ ] Multi-currency support
+- [ ] Advanced pricing rules
+- [ ] Integration with accounting software
+- [ ] Advanced analytics and insights
+- [ ] Workflow automation
+
+---
+
+**Note**: This is a comprehensive wood trading management system designed for small to medium-sized businesses. The system handles the complete workflow from inventory management to financial operations, with a focus on ease of use and scalability.
